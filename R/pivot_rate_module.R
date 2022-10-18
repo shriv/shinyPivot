@@ -254,7 +254,7 @@ pivot_rate_module <- function(input, output, session, ns_id, numer_df, denom_df,
      })
 
      numer_summarised <- eventReactive(input$refresh, {
-          grp_vars <- rlang::parse_quosures(paste0(input$group_vars_order, collapse = ";"))
+          grp_vars <- rlang::parse_quo(paste0(input$group_vars_order, collapse = ";"))
           numer_df %>%
                {if(!is.null(numer_filter_expr)) filter(., !!!numer_filter_expr()) else .}  %>% # conditional pipe
                group_by(!!!grp_vars) %>%
@@ -269,7 +269,7 @@ pivot_rate_module <- function(input, output, session, ns_id, numer_df, denom_df,
      })
 
      denom_summarised <- eventReactive(input$refresh, {
-          grp_vars <- rlang::parse_quosures(paste0(intersect(c(input$group_vars_order), denom_pivot_vars), collapse = ";"))
+          grp_vars <- rlang::parse_quo(paste0(intersect(c(input$group_vars_order), denom_pivot_vars), collapse = ";"))
           df <- denom_df %>%
                {if(!is.null(denom_filter_expr)) filter(., !!!denom_filter_expr()) else .}  %>% #
                group_by(!!!grp_vars) %>%

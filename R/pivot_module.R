@@ -197,7 +197,7 @@ pivot_module <- function(input, output, session, ns_id, df, pivot_vars, record_l
      })
 
      summarised_data <- eventReactive(input$refresh, {
-          grp_vars <- rlang::parse_quosures(paste0(c(input$row_vars_order, input$col_vars_order), collapse = ";"))
+          grp_vars <- rlang::parse_quo(paste0(c(input$row_vars_order, input$col_vars_order), collapse = ";"))
           filtered_data() %>%
                group_by(!!!grp_vars) %>%
                # another conditional pipe to do the summarization

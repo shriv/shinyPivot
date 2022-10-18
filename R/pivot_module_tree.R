@@ -290,7 +290,7 @@ pivot_tree_module <- function(input, output, session, ns_id, df, pivot_vars, rec
      })
 
      summarised_data <- eventReactive(input$refresh, {
-          grp_vars <- rlang::parse_quosures(paste0(dplyr::intersect(input$group_vars_order, show_vars()), collapse = ";"))
+          grp_vars <- rlang::parse_quo(paste0(dplyr::intersect(input$group_vars_order, show_vars()), collapse = ";"))
           print(rlang::expr_deparse(grp_vars))
           filtered_data() %>%
                group_by(!!!grp_vars) %>%
